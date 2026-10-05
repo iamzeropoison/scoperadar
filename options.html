@@ -1,0 +1,186 @@
+<!doctype html>
+<!-- options.html: ScopeRadar dashboard
+     Part of the ScopeRadar browser extension. See LICENSE for terms.
+     Original author: Muhammad Rebaal (github.com/iamzeropoison) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ScopeRadar Dashboard</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="wrap">
+    <!-- Hero: big rotating 3D globe -->
+    <section class="hero">
+      <div class="globe-scene">
+        <div id="star-field" class="star-field"></div>
+        <div class="globe-ring ring-1"></div>
+        <div class="globe-ring ring-2"></div>
+        <div class="globe-ring ring-3"></div>
+        <div class="globe">
+          <div class="globe-sphere"></div>
+          <div class="globe-gloss"></div>
+          <div class="globe-atmosphere"></div>
+        </div>
+        <div class="radar-blip" style="--top:18%; --left:68%; --delay:0s"></div>
+        <div class="radar-blip" style="--top:55%; --left:14%; --delay:1.1s"></div>
+        <div class="radar-blip" style="--top:72%; --left:70%; --delay:2.2s"></div>
+        <div class="radar-blip" style="--top:36%; --left:84%; --delay:1.7s"></div>
+      </div>
+      <div class="hero-text">
+        <div class="hero-brand"><img class="page-logo" src="icons/icon128.png" alt="ScopeRadar" /><h1>ScopeRadar</h1></div>
+        <p class="hero-tagline">Live scope data from HackerOne, Bugcrowd, Intigriti and YesWeHack, so you know what's in scope before you touch anything.</p>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="radar">Scope Radar</button>
+      <button class="tab-btn" data-tab="cvss">CVSS Calculator</button>
+      <button class="tab-btn" data-tab="ai">AI Assistant</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+    </nav>
+
+    <!-- ============ RADAR TAB ============ -->
+    <section class="tab-panel" data-panel="radar">
+      <section class="card">
+        <div class="card-header-row">
+          <h2>Scope database</h2>
+          <button id="btn-radar-sync" class="btn btn-primary">Sync now</button>
+        </div>
+        <p class="hint">
+          Synced from the public, community-maintained
+          <a href="https://github.com/arkadiyt/bounty-targets-data" target="_blank" rel="noopener">bounty-targets-data</a>
+          project, the actual in-scope/out-of-scope lists from HackerOne, Bugcrowd, Intigriti and YesWeHack. Runs fully client-side, cached on your device.
+        </p>
+        <div id="radar-stats" class="radar-stats"></div>
+        <div class="report-row" style="margin-top:14px;">
+          <div>
+            <label class="label">Auto-sync interval</label>
+            <select id="radar-interval" class="input">
+              <option value="0">Off (manual only)</option>
+              <option value="6">Every 6 hours</option>
+              <option value="24" selected>Every 24 hours</option>
+              <option value="72">Every 3 days</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Notify me about</label>
+            <label class="checkbox-row"><input type="checkbox" id="radar-notify" checked /> New programs &amp; new scope</label>
+          </div>
+        </div>
+        <button id="btn-save-radar-settings" class="btn btn-secondary">Save</button>
+      </section>
+
+      <section class="card">
+        <h2>Check a specific host</h2>
+        <div class="report-row-inline">
+          <input id="radar-check-input" class="input" type="text" placeholder="e.g. api.example.com" />
+          <button id="btn-radar-check" class="btn btn-primary">Check</button>
+        </div>
+        <div id="radar-check-result"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header-row"><h2>All synced programs</h2><span id="program-count-pill" class="pill-lg neutral"></span></div>
+        <p class="hint">Every program currently in the local scope database. Search by name, filter by platform, or narrow to bounty-paying programs only.</p>
+        <div class="program-controls">
+          <input id="program-search" class="input" type="text" placeholder="Search program name..." />
+          <select id="program-platform-filter" class="input program-filter-select">
+            <option value="">All platforms</option>
+            <option value="hackerone">HackerOne</option>
+            <option value="bugcrowd">Bugcrowd</option>
+            <option value="intigriti">Intigriti</option>
+            <option value="yeswehack">YesWeHack</option>
+          </select>
+          <label class="checkbox-row" style="margin:0; flex-shrink:0;"><input type="checkbox" id="program-bounty-only" /> Bounty-paying only</label>
+        </div>
+        <div id="program-list" class="program-list"></div>
+        <p id="program-list-note" class="hint" style="margin:8px 0 0"></p>
+      </section>
+
+      <section class="card">
+        <h2>Recent scope changes</h2>
+        <p class="hint">New programs and newly added scope, most recent first. A "tracked" tag marks domains you're already tracking.</p>
+        <div id="radar-feed" class="radar-feed"></div>
+      </section>
+    </section>
+
+    <!-- ============ CVSS TAB ============ -->
+    <section class="tab-panel" data-panel="cvss" style="display:none">
+      <section class="card">
+        <h2>CVSS 3.1 Base Score Calculator</h2>
+        <p class="hint">Standard FIRST.org CVSS v3.1 base metrics, the same formula used by NVD.</p>
+        <div id="cvss-grid" class="cvss-grid"></div>
+        <div class="cvss-result">
+          <div id="cvss-score" class="cvss-score">0.0</div>
+          <div>
+            <div id="cvss-severity" class="cvss-severity">Fill in the metrics</div>
+            <code id="cvss-vector" class="cvss-vector"></code>
+          </div>
+          <button id="btn-copy-vector" class="btn btn-secondary" style="margin:0;">Copy vector</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- ============ AI ASSISTANT TAB ============ -->
+    <section class="tab-panel" data-panel="ai" style="display:none">
+      <section class="card">
+        <div class="card-header-row">
+          <h2>Ask the AI Assistant <span class="hint-inline">(free, on-device, no key)</span></h2>
+          <button id="btn-chat-reset" class="btn btn-secondary" style="margin:0;">New conversation</button>
+        </div>
+        <p class="hint">
+          Runs on Chrome's own on-device model, so nothing you type here ever leaves your machine. Ask about
+          vulnerability classes, CVSS scoring, how to word a report, how to read a program's scope, or anything
+          else bug-bounty related. It won't write exploit code or attack instructions.
+        </p>
+        <div id="ai-status-box" class="ai-status-box">Checking availability...</div>
+        <button id="btn-ai-download" class="btn btn-primary" style="display:none">Start one-time download</button>
+
+        <div id="chat-window" class="chat-window">
+          <div class="chat-bubble assistant">Hi. Ask me anything about scoping, triage, CVSS, or writing up a finding.</div>
+        </div>
+        <div class="chat-input-row">
+          <textarea id="chat-input" class="textarea" rows="2" placeholder="e.g. How should I classify a SSRF that only reaches an internal metadata endpoint?"></textarea>
+          <button id="btn-chat-send" class="btn btn-primary" style="margin:0;">Send</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- ============ SETTINGS TAB ============ -->
+    <section class="tab-panel" data-panel="settings" style="display:none">
+      <section class="card">
+        <h2>Researcher profile</h2>
+        <p class="hint">Used to fill in the {researcherName} / {researcherEmail} placeholders in your outreach drafts (in the popup).</p>
+        <label class="label">Your name / handle</label>
+        <input id="researcherName" class="input" type="text" placeholder="e.g. Nishchal Sreevathsa" />
+        <label class="label">Your contact email</label>
+        <input id="researcherEmail" class="input" type="email" placeholder="you@example.com" />
+      </section>
+
+      <section class="card">
+        <h2>Outreach email template</h2>
+        <p class="hint">Placeholders: <code>{domain}</code>, <code>{researcherName}</code>, <code>{researcherEmail}</code>. Used when you draft a permission request from the popup.</p>
+        <label class="label">Subject</label>
+        <input id="subjectTemplate" class="input" type="text" />
+        <label class="label">Body</label>
+        <textarea id="bodyTemplate" class="textarea" rows="10"></textarea>
+        <button id="btn-save-settings" class="btn btn-primary">Save settings</button>
+        <span id="save-confirm" class="save-confirm"></span>
+      </section>
+    </section>
+
+    <footer class="page-footer">
+      <p>ScopeRadar &middot; Built by <a href="https://github.com/iamzeropoison" target="_blank" rel="noopener">Muhammad Rebaal</a></p>
+    </footer>
+  </div>
+  <script src="radar.js"></script>
+  <script src="cvss.js"></script>
+  <script src="safeharbor.js"></script>
+  <script src="ai.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

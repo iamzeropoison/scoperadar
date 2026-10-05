@@ -1,0 +1,133 @@
+<!doctype html>
+<!-- popup.html: ScopeRadar
+     Part of the ScopeRadar browser extension. See LICENSE for terms.
+     Original author: Muhammad Rebaal (github.com/iamzeropoison) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ScopeRadar</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo-container"><img class="logo" src="icons/icon128.png" alt="ScopeRadar" /></div>
+      <div class="title-section">
+        <h1 class="title">ScopeRadar</h1>
+        <p class="subtitle">Find scope. Ask permission. Get paid.</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div id="oos-banner" class="oos-banner" style="display:none"></div>
+      <div id="scope-banner" class="scope-banner" style="display:none">
+        <strong>Approved scope reminder:</strong> <span id="scope-banner-text"></span>
+      </div>
+
+      <div class="status-section">
+        <div id="status-indicator" class="status-indicator loading"><div class="loading-spinner"></div></div>
+        <div class="status-text">
+          <div id="status" class="status-message">Checking for bug bounty programs...</div>
+          <div id="domain-info" class="domain-info"></div>
+        </div>
+      </div>
+
+      <!-- Scope Radar: answers "is THIS host in scope?" from the public bounty database -->
+      <div id="radar-card" class="card-box" style="display:none">
+        <div class="card-title-row"><h3>Scope Radar</h3><span id="radar-pill" class="pill"></span></div>
+        <div id="radar-body"></div>
+        <div id="radar-sync-row" class="radar-sync-row" style="display:none">
+          <button id="btn-radar-sync" class="btn btn-secondary">Sync scope database now</button>
+          <div id="radar-sync-note" class="tiny"></div>
+        </div>
+      </div>
+
+      <div id="results" class="card-box" style="display:none">
+        <div class="card-title-row"><h3 id="results-title">Found Programs</h3></div>
+        <div id="details" class="program-list"></div>
+      </div>
+
+      <!-- Safe harbor: does the program's policy promise not to pursue good-faith testing? -->
+      <div id="policy-section" class="card-box" style="display:none">
+        <div class="card-title-row"><h3>Safe harbor</h3></div>
+        <button id="btn-safeharbor" class="btn btn-ghost">Check policy for safe-harbor language</button>
+        <div id="safeharbor-result" class="safeharbor-result" style="display:none"></div>
+      </div>
+
+      <div id="sectxt" class="card-box" style="display:none">
+        <div class="card-title-row"><h3>security.txt</h3><span id="sectxt-expiry-badge" class="pill" style="display:none"></span></div>
+        <div id="sectxt-fields" class="sectxt-fields"></div>
+      </div>
+
+      <div class="recon-section">
+        <button id="btn-recon" class="btn btn-ghost">Find subdomains (passive, public records)</button>
+        <div id="recon-results" class="recon-results" style="display:none"></div>
+      </div>
+
+      <div id="outreach" class="card-box" style="display:none">
+        <div class="outreach-header">
+          <h3 id="outreach-title">No public program: request permission</h3>
+          <p id="outreach-sub" class="outreach-subtitle">Draft a permission-request email before doing any testing. Nothing is sent automatically.</p>
+        </div>
+
+        <div id="spam-guard" class="spam-guard" style="display:none"></div>
+
+        <label class="field-label" for="contact-email">Likely security contact</label>
+        <input id="contact-email" class="field-input" type="email" spellcheck="false" />
+
+        <label class="field-label" for="email-subject">Subject</label>
+        <input id="email-subject" class="field-input" type="text" />
+
+        <label class="field-label" for="email-body">Email draft (edit freely)</label>
+        <textarea id="email-body" class="field-textarea" rows="6"></textarea>
+        <div class="ai-row">
+          <button id="btn-ai-polish" class="btn btn-ghost">Polish with AI</button>
+          <span id="ai-status" class="ai-status-line"></span>
+        </div>
+
+        <div class="outreach-actions">
+          <button id="btn-compose" class="btn btn-primary">Open in mail app</button>
+          <select id="status-select" class="status-select">
+            <option value="not_contacted">Not contacted</option>
+            <option value="requested">Requested</option>
+            <option value="awaiting_reply">Awaiting reply</option>
+            <option value="approved">Approved: scope set</option>
+            <option value="declined">Declined</option>
+            <option value="testing">Testing in progress</option>
+            <option value="reported">Vulnerability reported</option>
+            <option value="rewarded">Rewarded</option>
+          </select>
+        </div>
+
+        <div id="consent-gate" class="consent-gate" style="display:none">
+          <label class="consent-label">
+            <input type="checkbox" id="consent-checkbox" />
+            I have written permission covering this exact scope before marking this as "Testing".
+          </label>
+        </div>
+
+        <label class="field-label" for="notes">Notes</label>
+        <textarea id="notes" class="field-textarea" rows="2" placeholder="Scope granted, contact name, reward terms, etc."></textarea>
+
+        <div class="reminder-row">
+          <label class="field-label" for="reminder-days" style="margin:0">Follow-up reminder</label>
+          <select id="reminder-days" class="reminder-select">
+            <option value="">No reminder</option>
+            <option value="7">In 7 days</option>
+            <option value="14">In 14 days</option>
+            <option value="30">In 30 days</option>
+          </select>
+        </div>
+
+        <button id="btn-save" class="btn btn-secondary">Save to tracker</button>
+      </div>
+
+      <p class="footer-link"><a id="open-dashboard" href="#">Open dashboard →</a></p>
+      <p class="credit-line">Built by <a href="https://github.com/iamzeropoison" target="_blank" rel="noopener">Muhammad Rebaal</a></p>
+    </div>
+  </div>
+  <script src="ai.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "ScopeRadar: Bounty Scope & Outreach",
+  "short_name": "ScopeRadar",
+  "description": "Know instantly if a host is in scope of a public bug bounty program, synced from real HackerOne/Bugcrowd/Intigriti/YesWeHack data. Safe-harbor check, new-scope alerts, CVSS calculator, and permission-request outreach, with free on-device AI writing help.",
+  "version": "1.3.0",
+  "author": "Muhammad Rebaal (github.com/iamzeropoison)",
+  "permissions": ["activeTab", "storage", "unlimitedStorage", "tabs", "scripting", "alarms", "notifications", "contextMenus", "downloads"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ScopeRadar: is this host in scope?",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

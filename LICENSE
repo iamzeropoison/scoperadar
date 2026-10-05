@@ -1,0 +1,41 @@
+Copyright (c) 2025 Muhammad Rebaal (github.com/iamzeropoison)
+
+All Rights Reserved.
+
+This repository and its contents ("ScopeRadar") are the original work of
+the copyright holder named above. You may:
+
+  - View and study the source code.
+  - Fork or clone it for your own personal, non-commercial use and
+    experimentation.
+
+You may NOT, without prior written permission from the copyright holder:
+
+  - Redistribute this code, in whole or in part, under your own name or
+    branding.
+  - Sell, sublicense, or use this code (or a modified version of it) as
+    part of a commercial product or service.
+  - Remove or alter this notice, or the attribution in the README, when
+    redistributing copies.
+
+If you'd like to use this project beyond the above (contribute, fork
+publicly under your own project, or use it commercially), open an issue
+on the repository or reach out directly. Permission is easy to ask for
+and likely to be granted for reasonable, credited uses.
+
+Contact: Muhammad Rebaal, github.com/iamzeropoison
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING
+FROM THE USE OF THIS SOFTWARE.
+
+---
+
+Note: this license controls your legal rights, not what a browser can
+technically do. Once installed, an extension's JavaScript is readable by
+the browser and therefore by the user. No license or "encryption" changes
+that. What this file gives you is a clear, timestamped statement of your
+terms and authorship, which matters if someone copies this project without
+permission.
