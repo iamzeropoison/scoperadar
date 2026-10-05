@@ -217,7 +217,7 @@ GitHub: [github.com/iamzeropoison](https://github.com/iamzeropoison)
 
 Questions, feedback, or want to use this beyond what the license covers?
 Open an issue on this repo, or reach out directly: contact **muhammad-rebaal**
-on LinkedIn [linkedin.com/in/muhammad-rebaal](linkedin.com/in/muhammad-rebaal).
+on LinkedIn [linkedin.com/in/muhammad-rebaal](https://www.linkedin.com/in/muhammad-rebaal).
 
 ## License
 
