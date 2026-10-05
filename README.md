@@ -158,7 +158,7 @@ scopehound-extension/
  downloads its on-device model (a few GB) once, in the background
 3. Type any bug-bounty-related question into the chat box. No key, no
  sign-up, ever. Use **New conversation** to clear context.
-4. Separately, ** Polish with AI** in the popup's outreach draft uses the
+4. Separately, **Polish with AI** in the popup's outreach draft uses the
  same on-device model to tidy up your email wording.
 
 ## Data sources & credit
