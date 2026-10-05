@@ -25,18 +25,9 @@ CVSS calculator, and free on-device AI writing help.
 > and recon are read-only lookups against public data; only test what a
 > program's scope (or a company's written permission) actually covers.
 
-## Screenshots
-
 | Popup (on any website) | Dashboard |
 |---|---|
-| ![Popup screenshot](assets/screenshot-popup.png) | ![Dashboard screenshot](assets/screenshot-dashboard.png) |
-
-> Add your own screenshots here: load the extension, open the popup on
-> any site, press your OS screenshot shortcut, and save the image as
-> `assets/screenshot-popup.png`. Do the same for the dashboard (click the
-> icon → "Open dashboard") and save as `assets/screenshot-dashboard.png`.
-> Both paths already match what this README links to. Just drop the two
-> files into the `assets/` folder and the images above will appear.
+| ![Popup screenshot](assets/banner.png) | ![Dashboard screenshot](assets/Dashboard.png) |
 
 ## Quick Start
 
