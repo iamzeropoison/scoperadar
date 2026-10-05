@@ -27,7 +27,7 @@ CVSS calculator, and free on-device AI writing help.
 
 | Popup (on any website) | Dashboard |
 |---|---|
-| ![Popup screenshot](assets/banner.png) | ![Dashboard screenshot](assets/Dashboard.png) |
+| ![Popup screenshot](assets/scoperadar.png) | ![Dashboard screenshot](assets/Dashboard.png) |
 
 ## Quick Start
 
